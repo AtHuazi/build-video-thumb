@@ -10,8 +10,7 @@ RUN curl -sL https://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz | tar -C n
 RUN curl -sL https://github.com/wandenberg/nginx-video-thumbextractor-module/archive/${THUMB_MODULE_VERSION}.tar.gz | tar -C nginx-thumb-module --strip 1 -xz
 
 WORKDIR /nginx
-RUN ./configure --prefix=/usr/local/nginx \
-	--add-module=../nginx-thumb-module
+RUN ./configure --add-module=../nginx-thumb-module
 
 RUN make
 RUN make install
