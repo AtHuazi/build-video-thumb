@@ -22,4 +22,4 @@ COPY --from=build /usr/local/nginx /usr/local/nginx
 COPY nginx.conf /usr/local/nginx/conf/nginx.conf
 RUN rm -rf /usr/local/nginx/html /usr/loca/nginx/conf/*.default
 ENTRYPOINT ["/usr/local/nginx/sbin/nginx"]
-CMD ["-g", "daemon off;"]
+CMD ["-c", "/usr/local/nginx/conf/nginx.conf"]
