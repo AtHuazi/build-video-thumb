@@ -1,18 +1,16 @@
-name: Docker Image CI
+name: Push video-thumb-gen
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+on: [push]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag video-thumb-gen:$(date +%s)
+    - uses: actions/checkout@v1
+      
+    - name: Build Image And Push to DockerHub
+      uses: elgohr/Publish-Docker-Github-Action@2.11
+      with:
+        name: goodboyymh/video-thumb-gen
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
