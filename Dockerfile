@@ -4,10 +4,10 @@ RUN apk add --no-cache curl build-base openssl openssl-dev zlib-dev linux-header
 RUN mkdir nginx nginx-thumb-module
 
 ENV NGINX_VERSION 1.18.0
-ENV THUMB_MODULE_VERSION 0.9.0
+ENV THUMB_MODULE_VERSION master
 
 RUN curl -sL https://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz | tar -C nginx --strip 1 -xz
-RUN curl -sL https://github.com/wandenberg/nginx-video-thumbextractor-module/archive/refs/heads/master.zip | unzip -d nginx-thumb-module master.zip
+RUN curl -sL https://github.com/wandenberg/nginx-video-thumbextractor-module/archive/${THUMB_MODULE_VERSION}.tar.gz | tar -C nginx-thumb-module --strip 1 -xz
 
 WORKDIR /nginx
 RUN ./configure --prefix=/usr/local/nginx \
