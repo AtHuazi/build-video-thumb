@@ -1,6 +1,6 @@
 FROM alpine:3.17 as build
 
-RUN apk add --no-cache curl build-base openssl openssl-dev zlib-dev linux-headers pcre-dev ffmpeg=5.0.1-r1  libjpeg-turbo libjpeg-turbo-dev
+RUN apk add --no-cache curl ffmpeg=5.0.1-r1
 RUN mkdir nginx nginx-thumb-module
 
 ENV NGINX_VERSION 1.18.0
@@ -16,7 +16,7 @@ RUN make
 RUN make install
 
 FROM alpine:3.17
-RUN apk add --no-cache ca-certificates openssl pcre zlib luajit ffmpeg=5.0.1-r1 libjpeg-turbo
+RUN apk add --no-cache ffmpeg=5.0.1-r1
 COPY --from=build /usr/local/nginx /usr/local/nginx
 COPY nginx.conf /usr/local/nginx/conf/nginx.conf
 RUN rm -rf /usr/local/nginx/html /usr/loca/nginx/conf/*.default
