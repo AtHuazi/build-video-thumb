@@ -1,6 +1,6 @@
-FROM alpine:3.17 as build
+FROM alpine:3.16 as build
 
-RUN apk add --no-cache curl ffmpeg=5.0.1-r1
+RUN apk add --no-cache curl ffmpeg
 RUN mkdir nginx nginx-thumb-module
 
 ENV NGINX_VERSION 1.18.0
@@ -15,8 +15,8 @@ RUN ./configure --add-module=../nginx-thumb-module
 RUN make
 RUN make install
 
-FROM alpine:3.17
-RUN apk add --no-cache ffmpeg=5.0.1-r1
+FROM alpine:3.16
+RUN apk add --no-cache ffmpeg
 COPY --from=build /usr/local/nginx /usr/local/nginx
 COPY nginx.conf /usr/local/nginx/conf/nginx.conf
 RUN rm -rf /usr/local/nginx/html /usr/loca/nginx/conf/*.default
