@@ -3,7 +3,7 @@ FROM alpine:3.17 as build
 RUN apk add --no-cache curl build-base openssl openssl-dev zlib-dev linux-headers pcre-dev ffmpeg ffmpeg-dev libjpeg-turbo libjpeg-turbo-dev
 RUN mkdir nginx nginx-thumb-module
 
-ENV NGINX_VERSION 1.23.0
+ENV NGINX_VERSION 1.18.0
 ENV THUMB_MODULE_VERSION 0.9.0
 
 RUN curl -sL https://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz | tar -C nginx --strip 1 -xz
@@ -12,6 +12,7 @@ RUN curl -sL https://github.com/wandenberg/nginx-video-thumbextractor-module/arc
 WORKDIR /nginx
 RUN ./configure --prefix=/usr/local/nginx \
 	--add-module=../nginx-thumb-module
+
 RUN make
 RUN make install
 
